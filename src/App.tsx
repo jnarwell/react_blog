@@ -1,12 +1,18 @@
+// Import Node Modules
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+// Import Views
 import Home from './views/Home';
 import Login from './views/Login';
+import Register from './views/Register';
+// Import Components
 import AlertMessage from './components/AlertMessage';
 import Navigation from "./components/Navigation";
+// Import Types
 import CategoryType from './types/category';
 import UserType from './types/auth';
+
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,12 +25,11 @@ export default function App() {
         setIsLoggedIn(true);
         setLoggedInUser(user);
         flashMessage(`${user.username} has logged in`, 'success');
-
     }
 
     const logUserOut = (): void => {
         setIsLoggedIn(false);
-        setLoggedInUser(null)
+        setLoggedInUser(null);
         flashMessage('You have logged out', 'info');
     }
 
@@ -39,8 +44,9 @@ export default function App() {
             <Container>
                 {message && <AlertMessage category={category!} message={message} flashMessage={flashMessage} />}
                 <Routes>
-                    <Route path='/' element={<Home isLoggedIn={isLoggedIn} user={loggedInUser} flashMessage={flashMessage}/>} />
-                    <Route path='/login' element={<Login isLoggedIn={isLoggedIn} logUserIn={logUserIn} flashMessage={flashMessage}/>} />
+                    <Route path='/' element={<Home isLoggedIn={isLoggedIn} user={loggedInUser} flashMessage={flashMessage} />} />
+                    <Route path='/login' element={<Login isLoggedIn={isLoggedIn} logUserIn={logUserIn} />} />
+                    <Route path='/register' element={<Register logUserIn={logUserIn} />} />
                 </Routes>
             </Container>
         </div>
